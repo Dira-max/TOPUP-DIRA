@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard - Dira-Market</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f2f2f2;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 15px;
+      align-items: center;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    select, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button.submit-btn {
+      grid-column: span 2;
+      background: #0275d8;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button.submit-btn:hover {
+      background: #025aa5;
+    }
+    .payment-methods {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .payment-methods ul {
+      list-style: none;
+      padding-left: 0;
+      line-height: 1.8;
+    }
+    .filters {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    select,
+    input[type="date"] {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    th,
+    td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #444;
+      color: white;
+    }
+    button {
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-right: 5px;
+      font-size: 0.9rem;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    .btn-hapus {
+      background: #d9534f;
+    }
+    .btn-hapus:hover {
+      background: #c9302c;
+    }
+    .btn-status {
+      background: #f0ad4e;
+    }
+    .btn-status:hover {
+      background: #ec971f;
+    }
+    .btn-wa {
+      background: #0275d8;
+    }
+    .btn-telegram {
+      background: #0088cc;
+    }
+    .status-pending {
+      color: orange;
+      font-weight: bold;
+    }
+    .status-selesai {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+
+  <form id="orderForm">
+    <div>
+      <label for="game">Game</label>
+      <select id="game" required>
+        <option value="" disabled selected>Pilih Game</option>
+        <option value="Free Fire">Free Fire</option>
+        <option value="Mobile Legends">Mobile Legends</option>
+        <option value="PUBG Mobile">PUBG Mobile</option>
+      </select>
+    </div>
+    <div>
+      <label for="diamond,Uc">Jenis Diamond,Uc</label>
+      <select id="diamond",Uc required>
+        <option value="" disabled selected>Pilih Diamond,Uc</option>
+      </select>
+    </div>
+    <div>
+      <label for="idUser">ID Pengguna</label>
+      <input type="text" id="idUser" placeholder="Masukkan ID Pengguna" required />
+    </div>
+    <div>
+      <label for="jumlah">Jumlah</label>
+      <input type="number" id="jumlah" placeholder="Jumlah Diamond" min="1" required />
+    </div>
+    <div>
+      <label for="bayar">Metode Pembayaran</label>
+      <select id="bayar" required>
+        <option value="" disabled selected>Pilih Metode</option>
+        <option value="Dana">Dana</option>
+        <option value="OVO">OVO</option>
+        <option value="Gopay">Gopay</option>
+        <option value="QRIS">QRIS</option>
+      </select>
+    </div>
+    <div>
+      <label>&nbsp;</label>
+      <button type="submit" class="submit-btn">Tambah Pesanan</button>
+    </div>
+  </form>
+
+  <div class="payment-methods">
+    <h2>Metode Pembayaran</h2>
+    <ul>
+      <li><strong>Dana:</strong> 085822309902</li>
+      <li><strong>OVO:</strong> 085822309902</li>
+      <li><strong>Gopay:</strong> 085822309902</li>
+      <li><strong>QRIS:</strong> <a href="#" onclick="alert('https://files.catbox.moe/93gztz.png')">Lihat QRIS</a></li>
+    </ul>
+  </div>
+
+  <div class="filters">
+    <select id="filterGame">
+      <option value="">Semua Game</option>
+      <option value="Free Fire">Free Fire</option>
+      <option value="Mobile Legends">Mobile Legends</option>
+      <option value="PUBG Mobile">PUBG Mobile</option>
+    </select>
+    <select id="filterStatus">
+      <option value="">Semua Status</option>
+      <option value="Pending">Pending</option>
+      <option value="Selesai">Selesai</option>
+    </select>
+    <input type="date" id="filterTanggal" />
+  </div>
+
+  <table id="orderTable">
+    <thead>
+      <tr>
+        <th>Waktu</th>
+        <th>Game</th>
+        <th>Jenis Diamond</th>
+        <th>ID Pengguna</th>
+        <th>Jumlah</th>
+        <th>Pembayaran</th>
+        <th>Status</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    // Inisialisasi status jika belum ada
+    for (let i = 0; i < orders.length; i++) {
+      if (!orders[i].status) {
+        orders[i].status = "Pending";
+      }
+    }
+    localStorage.setItem("orders", JSON.stringify(orders));
+
+    const tbody = document.querySelector("#orderTable tbody");
+    const filterGame = document.getElementById("filterGame");
+    const filterStatus = document.getElementById("filterStatus");
+    const filterTanggal = document.getElementById("filterTanggal");
+
+    const gameSelect = document.getElementById("game");
+    const diamondSelect = document.getElementById("diamond");
+    const idUserInput = document.getElementById("idUser");
+    const jumlahInput = document.getElementById("jumlah");
+    const bayarSelect = document.getElementById("bayar");
+    const orderForm = document.getElementById("orderForm");
+
+<script>
+    const diamondOptions = {
+      "Free Fire": [
+        "5 Diamond - Rp 1.500",
+        "12 Diamond - Rp 3.000",
+        "50 Diamond - Rp 8.000",
+        "100 Diamond - Rp 16.000",
+        "140 Diamond - Rp 20.000",
+        "210 Diamond - Rp 33.000",
+        "355 Diamond - Rp 50.000",
+        "425 Diamond - Rp 60.000",
+        "500 Diamond - Rp 70.000",
+        "720 Diamond - Rp 100.000",
+        "1050 Diamond - Rp 150.000",
+        "Membership Mingguan - Rp 32.000",
+        "Membership Bulanan - Rp 100.000",
+        
+      ],
+      "Mobile Legends": [
+        "3 Diamond - Rp 3.000",
+        "20 Diamond - Rp 8.000",
+        "54 Diamond - Rp 18.000",
+        "88 Diamond - Rp 27.000",
+        "148 Diamond - Rp 45.000",
+        "170 Diamond - Rp 53.000",
+        "184 Diamond - Rp 57.000",
+        "240 Diamond - Rp 75.000",
+        "258 Diamond - Rp 80.000",
+        "Starlight Member - Rp 100.000",
+        "Weekly Diamond Pas - Rp 30.000",
+        "Weekly Diamond Pas 2x - Rp 60.000",
+        "Weekly Diamond Pas 3x - Rp 90.000",
+        "Weekly Diamond Pas 4x - Rp 120.000",
+        "Weekly Diamond Pas 5x - Rp 155.000",
+        
+      ],
+      "PUBG Mobile": [
+        "60 UC - Rp 17.000",
+        "120 UC - Rp 34.000",
+        "180 UC - Rp 55.000",
+        "240 UC - Rp 65.000",
+        "325 UC - Rp 80.000",
+        "385 UC - Rp 95.000",
+        "Royale Pass - Rp 170.000",
+        "Elite Pass Plus - Rp 400.000",
+        
+      ]
+    };
+
+    // Update opsi diamond ketika game berubah
+    gameSelect.addEventListener("change", () => {
+      const game = gameSelect.value;
+      diamondSelect.innerHTML = '<option value="" disabled selected>Pilih Diamond</option>';
+      if (diamondOptions[game]) {
+        diamondOptions[game].forEach(diamond => {
+          const option = document.createElement("option");
+          option.value = diamond;
+          option.textContent = diamond;
+          diamondSelect.appendChild(option);
+        });
+      }
+    });
+
+    function renderTable() {
+      tbody.innerHTML = "";
+
+      const gameVal = filterGame.value;
+      const statusVal = filterStatus.value;
+      const tanggalVal = filterTanggal.value;
+
+      const filtered = orders.filter((order) => {
+        const cocokGame = !gameVal || order.game === gameVal;
+        const cocokStatus = !statusVal || order.status === statusVal;
+        const cocokTanggal = !tanggalVal || order.waktu.startsWith(tanggalVal);
+        return cocokGame && cocokStatus && cocokTanggal;
+      });
+
+      filtered.forEach((order, index) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${order.waktu}</td>
+          <td>${order.game}</td>
+          <td>${order.diamond}</td>
+          <td>${order.idUser}</td>
+          <td>${order.jumlah}</td>
+          <td>${order.bayar}</td>
+          <td>
+            <span class="${order.status === "Pending" ? "status-pending" : "status-selesai"}">
+              ${order.status}
+            </span>
+            <br>
+            <button class="btn-status" onclick="toggleStatus(${index})">Ubah Status</button>
+          </td>
+          <td>
+            <button class="btn-hapus" onclick="hapus(${index})">Hapus</button>
+            <button class="btn-wa" onclick="konfirmasiWA(${index})">Konfirmasi WA</button>
+            <button class="btn-telegram" onclick="konfirmasiTelegram(${index})">Konfirmasi Telegram</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function hapus(index) {
+      if (confirm("Yakin ingin menghapus pesanan ini?")) {
+        orders.splice(index, 1);
+        localStorage.setItem("orders", JSON.stringify(orders));
+        renderTable();
+      }
+    }
+
+    function toggleStatus(index) {
+      orders[index].status =
+        orders[index].status === "Pending" ? "Selesai" : "Pending";
+      localStorage.setItem("orders", JSON.stringify(orders));
+      renderTable();
+    }
+
+    function konfirmasiWA(index) {
+      const order = orders[index];
+      const nomorWA = "6287784555835"; // Ganti nomor admin (format internasional tanpa '+')
+      const pesan = `Halo, pesanan anda untuk Game ${order.game} dengan ID Pengguna ${order.idUser} sebanyak ${order.jumlah} ${order.diamond} sudah diproses. Status pesanan adalah ${order.status}. Terima kasih.`;
+      const urlWA = `https://wa.me/${6287784555835}?text=${encodeURIComponent(pesan)}`;
+      window.open(urlWA, "_blank");
+    }
+
+    function konfirmasiTelegram(index) {
+      const order = orders[index];
+      const usernameTelegram = "Dedexzs"; // Ganti dengan username Telegram admin tanpa @
+      const pesan = `Halo, pesanan anda untuk Game ${order.game} dengan ID Pengguna ${order.idUser} sebanyak ${order.jumlah} ${order.diamond} sudah diproses. Status pesanan adalah ${order.status}. Terima kasih.`;
+      const urlTelegram = `https://t.me/${Dedexzs}?text=${encodeURIComponent(pesan)}`;
+      window.open(urlTelegram, "_blank");
+    }
+
+    // Event listener untuk filter
+    filterGame.addEventListener("change", renderTable);
+    filterStatus.addEventListener("change", renderTable);
+    filterTanggal.addEventListener("change", renderTable);
+
+    // Tambah pesanan baru
+    orderForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const game = gameSelect.value;
+      const diamond = diamondSelect.value;
+      const idUser = idUserInput.value.trim();
+      const jumlah = Number(jumlahInput.value);
+      const bayar = bayarSelect.value;
+
+      if (!game || !diamond || !idUser || !jumlah || !bayar) {
+        alert("Mohon lengkapi semua kolom!");
+        return;
+      }
+
+      const waktu = new Date().toISOString().slice(0, 19).replace("T", " ");
+
+      const newOrder = {
+        waktu,
+        game,
+        diamond,
+        idUser,
+        jumlah,
+        bayar,
+        status: "Pending"
+      };
+
+      orders.push(newOrder);
+      localStorage.setItem("orders", JSON.stringify(orders));
+
+      // Reset form
+      orderForm.reset();
+      diamondSelect.innerHTML = '<option value="" disabled selected>Pilih Diamond</option>';
+
+      renderTable();
+    });
+
+    renderTable();
+  </script>
+</body>
+</html>
